@@ -1,0 +1,12 @@
+database:
+  connection:
+    jdbcUrl: "jdbc:oracle:thin:@localhost:1521:xe"
+    username: "username"
+    password: "password"
+    driverClassName: "oracle.jdbc.OracleDriver"
+  connectionPool:
+    maximumPoolSize: 10
+    minimumIdle: 2
+    idleTimeout: 30000
+    connectionTimeout: 20000
+    maxLifetime: 1800000
