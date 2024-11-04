@@ -21,7 +21,6 @@ import java.io.InputStream;
 public class ApplicationConfig {
 
     private static final Log log = LogFactory.getLog(ApplicationConfig.class);
-//    private static final Logger log = LogManager.getLogger(ApplicationConfig.class);
 
     private HikariDataSource dataSource;
 
