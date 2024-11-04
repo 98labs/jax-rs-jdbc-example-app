@@ -5,7 +5,7 @@
         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 
-    <display-name>JAX-RS + JDBC Example APP</display-name>
+    <display-name>JAX-RS (RESTEasy) + JDBC Example</display-name>
 
     <listener>
         <listener-class>
