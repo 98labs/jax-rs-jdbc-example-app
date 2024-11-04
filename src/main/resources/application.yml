@@ -1,9 +1,9 @@
 database:
   connection:
-    jdbcUrl: "jdbc:oracle:thin:@localhost:1521:xe"
-    username: "username"
-    password: "password"
-    driverClassName: "oracle.jdbc.OracleDriver"
+    jdbcUrl: jdbc:h2:~/temp
+    username: sa
+    password: ""
+    driverClassName: org.h2.Driver
   connectionPool:
     maximumPoolSize: 10
     minimumIdle: 2
