@@ -17,10 +17,10 @@ public class CustomerController {
     private final CustomerService customerService = new CustomerService();
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String findAllCustomers() {
-        Customer customer = Customer.builder().id(BigInteger.valueOf(1)).name("John Doe").email("john.doe@test.com").build();
-        return "Testing 123";
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findAllCustomers() {
+        List<Customer> customers = customerService.getAllCustomers();
+        return Response.ok(customers).build();
     }
 
     @GET
