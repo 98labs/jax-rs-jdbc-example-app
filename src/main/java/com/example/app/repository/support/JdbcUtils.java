@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class JdbcUtils {
 
-    private static final Log logger = LogFactory.getLog(JdbcUtils.class);
+    private static final Log log = LogFactory.getLog(JdbcUtils.class);
 
     /**
      * Close the given JDBC Connection and ignore any thrown exception.
@@ -22,10 +22,10 @@ public abstract class JdbcUtils {
             try {
                 con.close();
             } catch (SQLException ex) {
-                logger.debug("Could not close JDBC Connection", ex);
+                log.debug("Could not close JDBC Connection", ex);
             } catch (Throwable ex) {
                 // We don't trust the JDBC driver: It might throw RuntimeException or Error.
-                logger.debug("Unexpected exception on closing JDBC Connection", ex);
+                log.debug("Unexpected exception on closing JDBC Connection", ex);
             }
         }
     }
@@ -41,10 +41,10 @@ public abstract class JdbcUtils {
             try {
                 ps.close();
             } catch (SQLException ex) {
-                logger.trace("Could not close JDBC Statement", ex);
+                log.trace("Could not close JDBC Statement", ex);
             } catch (Throwable ex) {
                 // We don't trust the JDBC driver: It might throw RuntimeException or Error.
-                logger.trace("Unexpected exception on closing JDBC Statement", ex);
+                log.trace("Unexpected exception on closing JDBC Statement", ex);
             }
         }
     }
@@ -60,10 +60,10 @@ public abstract class JdbcUtils {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                logger.trace("Could not close JDBC Statement", ex);
+                log.trace("Could not close JDBC Statement", ex);
             } catch (Throwable ex) {
                 // We don't trust the JDBC driver: It might throw RuntimeException or Error.
-                logger.trace("Unexpected exception on closing JDBC Statement", ex);
+                log.trace("Unexpected exception on closing JDBC Statement", ex);
             }
         }
     }
@@ -79,10 +79,10 @@ public abstract class JdbcUtils {
             try {
                 rs.close();
             } catch (SQLException ex) {
-                logger.trace("Could not close JDBC ResultSet", ex);
+                log.trace("Could not close JDBC ResultSet", ex);
             } catch (Throwable ex) {
                 // We don't trust the JDBC driver: It might throw RuntimeException or Error.
-                logger.trace("Unexpected exception on closing JDBC ResultSet", ex);
+                log.trace("Unexpected exception on closing JDBC ResultSet", ex);
             }
         }
     }

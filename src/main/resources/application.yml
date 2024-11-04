@@ -1,9 +1,9 @@
 database:
   connection:
-    jdbcUrl: jdbc:h2:~/temp
-    username: sa
-    password: ""
-    driverClassName: org.h2.Driver
+    jdbcUrl: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?user=postgres.falbqdyzifwledbuiids&password=4N9M_QM_DJ%23nenC
+    username: postgres.falbqdyzifwledbuiids
+    password: 4N9M_QM_DJ#nenC
+    driverClassName: org.postgresql.Driver
   connectionPool:
     maximumPoolSize: 10
     minimumIdle: 2
