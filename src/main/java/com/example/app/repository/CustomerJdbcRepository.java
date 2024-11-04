@@ -55,12 +55,13 @@ public class CustomerJdbcRepository implements CustomerRepository {
         String sql = "SELECT id, name, email FROM customers WHERE id = ?";
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         Customer customer = null;
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setLong(1, id.longValue());
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if(rs.next()) {
                 customer = new Customer();
                 customer.setId(BigInteger.valueOf(rs.getLong("id")));
@@ -70,6 +71,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         } catch (SQLException ex) {
             throw new DataAccessException("Error finding customer", ex);
         } finally {
+            JdbcUtils.closeResultSet(rs);
             JdbcUtils.closePreparedStatement(ps);
             JdbcUtils.closeConnection(conn);
         }
@@ -81,12 +83,13 @@ public class CustomerJdbcRepository implements CustomerRepository {
         String sql = "SELECT id, name, email FROM customers WHERE email = ?";
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         Customer customer = null;
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if(rs.next()) {
                 customer = new Customer();
                 customer.setId(BigInteger.valueOf(rs.getLong("id")));
@@ -96,6 +99,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         } catch (SQLException ex) {
             throw new DataAccessException("Error finding customer", ex);
         } finally {
+            JdbcUtils.closeResultSet(rs);
             JdbcUtils.closePreparedStatement(ps);
             JdbcUtils.closeConnection(conn);
         }
@@ -145,11 +149,12 @@ public class CustomerJdbcRepository implements CustomerRepository {
         String sql = "SELECT id, name, email FROM customers";
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         List<Customer> customers = new ArrayList<Customer>();
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while(rs.next()) {
                 Customer customer = new Customer();
                 customer.setId(BigInteger.valueOf(rs.getLong("id")));
@@ -160,6 +165,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         } catch (SQLException ex) {
             throw new DataAccessException("Error finding customers", ex);
         } finally {
+            JdbcUtils.closeResultSet(rs);
             JdbcUtils.closePreparedStatement(ps);
             JdbcUtils.closeConnection(conn);
         }
@@ -171,12 +177,13 @@ public class CustomerJdbcRepository implements CustomerRepository {
         String sql = "SELECT id, name, email FROM customers WHERE name LIKE ?";
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         List<Customer> customers = new ArrayList<Customer>();
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while(rs.next()) {
                 Customer customer = new Customer();
                 customer.setId(BigInteger.valueOf(rs.getLong("id")));
@@ -187,6 +194,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         } catch (SQLException ex) {
             throw new DataAccessException("Error finding customers", ex);
         } finally {
+            JdbcUtils.closeResultSet(rs);
             JdbcUtils.closePreparedStatement(ps);
             JdbcUtils.closeConnection(conn);
         }
@@ -198,6 +206,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         String sql = "SELECT id, name, email FROM customers WHERE name LIKE ? LIMIT ? OFFSET ?";
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         List<Customer> customers = new ArrayList<Customer>();
         try {
             conn = dataSource.getConnection();
@@ -206,7 +215,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
             ps.setInt(2,  pageSize);
             ps.setInt(3, offset);
             log.debug("SQL: " + ps.toString());
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while(rs.next()) {
                 Customer customer = new Customer();
                 customer.setId(BigInteger.valueOf(rs.getLong("id")));
@@ -217,6 +226,7 @@ public class CustomerJdbcRepository implements CustomerRepository {
         } catch (SQLException ex) {
             throw new DataAccessException("Error finding customers", ex);
         } finally {
+            JdbcUtils.closeResultSet(rs);
             JdbcUtils.closePreparedStatement(ps);
             JdbcUtils.closeConnection(conn);
         }
