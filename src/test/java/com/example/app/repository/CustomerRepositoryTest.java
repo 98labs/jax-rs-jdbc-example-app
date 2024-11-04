@@ -27,8 +27,7 @@ public class CustomerRepositoryTest extends TestCase {
 //    }
 
     public void testFindById() {
-        long id = 1;
-        Customer customer = repository.findById(BigInteger.valueOf(id));
+        Customer customer = repository.findById(BigInteger.valueOf(1));
         assertNotNull(customer);
         assertEquals("Alice Johnson", customer.getName());
         assertEquals("alice.johnson@example.com", customer.getEmail());

@@ -14,6 +14,7 @@ classes/
 jxl.log
 jmx.log
 derby.log
+logs/
 
 # Gradle artifacts
 .gradle
