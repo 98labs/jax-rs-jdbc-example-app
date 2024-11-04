@@ -6,21 +6,29 @@ import com.example.app.config.properties.Database;
 import com.example.app.config.properties.YamlConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.sql.DataSource;
 import java.io.InputStream;
 
 @ApplicationScoped
 public class ApplicationConfig {
+
+    private static final Log log = LogFactory.getLog(ApplicationConfig.class);
+//    private static final Logger log = LogManager.getLogger(ApplicationConfig.class);
+
     private HikariDataSource dataSource;
 
-    @PostConstruct
+    public ApplicationConfig() {
+        init();
+    }
+
     public void init() {
         // load configuration from YAML
         YamlConfig yamlConfig = loadYamlConfig();
@@ -44,14 +52,18 @@ public class ApplicationConfig {
 
         // create a new DataSource
         this.dataSource = new HikariDataSource(config);
+        log.debug("DataSource initialized");
     }
 
     public DataSource getDataSource() {
         return dataSource;
     }
 
-    @PreDestroy
-    public void close() {
+    public void destroy() {
+        closeDataSource();
+    }
+
+    public void closeDataSource() {
         if (dataSource != null) {
             dataSource.close();
         }

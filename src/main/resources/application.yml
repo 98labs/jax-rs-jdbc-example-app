@@ -1,9 +1,9 @@
 database:
   connection:
-    jdbcUrl: "jdbc:oracle:thin:@localhost:1521:xe"
-    username: "username"
-    password: "password"
-    driverClassName: "oracle.jdbc.OracleDriver"
+    jdbcUrl: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?user=postgres.falbqdyzifwledbuiids&password=4N9M_QM_DJ%23nenC
+    username: postgres.falbqdyzifwledbuiids
+    password: 4N9M_QM_DJ#nenC
+    driverClassName: org.postgresql.Driver
   connectionPool:
     maximumPoolSize: 10
     minimumIdle: 2
