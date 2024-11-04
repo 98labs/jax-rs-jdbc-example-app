@@ -6,7 +6,6 @@ import com.example.app.config.properties.Database;
 import com.example.app.config.properties.YamlConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -21,11 +20,19 @@ import java.io.InputStream;
 public class ApplicationConfig {
 
     private static final Log log = LogFactory.getLog(ApplicationConfig.class);
-//    private static final Logger log = LogManager.getLogger(ApplicationConfig.class);
+
+    private static ApplicationConfig instance;
+
+    public static synchronized ApplicationConfig getInstance() {
+        if (instance == null) {
+            instance = new ApplicationConfig();
+        }
+        return instance;
+    }
 
     private HikariDataSource dataSource;
 
-    public ApplicationConfig() {
+    private ApplicationConfig() {
         init();
     }
 

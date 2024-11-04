@@ -1,6 +1,5 @@
 package com.example.app.repository;
 
-import com.example.app.config.ApplicationConfig;
 import com.example.app.core.DataAccessException;
 import com.example.app.model.Customer;
 import com.example.app.repository.support.JdbcUtils;
@@ -20,9 +19,9 @@ public class CustomerJdbcRepository implements CustomerRepository {
 
     private static Log log = LogFactory.getLog(CustomerJdbcRepository.class);
 
-    private DataSource dataSource;
+    private DataSource dataSource = null;
 
-    public void setDataSource(DataSource dataSource) {
+    public CustomerJdbcRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

@@ -1,68 +1,49 @@
 package com.example.app.service;
 
+import com.example.app.config.ApplicationConfig;
 import com.example.app.model.Customer;
+import com.example.app.repository.CustomerJdbcRepository;
+import com.example.app.repository.CustomerRepository;
 
 import java.math.BigInteger;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 public class CustomerService {
 
-    private static final Map<BigInteger, Customer> customers = new HashMap<>();
-    private static final AtomicLong idCounter = new AtomicLong();
+    ApplicationConfig config = ApplicationConfig.getInstance();
+    CustomerRepository customerRepository = new CustomerJdbcRepository(config.getDataSource());
 
     public List<Customer> getAllCustomers() {
-        ArrayList<Customer> customers = new ArrayList<Customer>();
-        customers.add(Customer.builder().id(BigInteger.valueOf(1)).name("John Doe").email("john.doe@example.com").build());
-        customers.add(Customer.builder().id(BigInteger.valueOf(2)).name("Jane Doe").email("jane.doe@example.com").build());
-        return customers;
+        return customerRepository.findAll();
     }
 
     public Optional<Customer> getCustomerById(BigInteger id) {
-        return Optional.ofNullable(customers.get(id));
+        return Optional.ofNullable(customerRepository.findById(id));
     }
 
-    public Customer createCustomer(Customer customer) {
-        BigInteger id = BigInteger.valueOf(idCounter.incrementAndGet());
-        customer.setId(id);
-        customers.put(id, customer);
-        return customer;
+    public BigInteger createCustomer(Customer customer) {
+        return customerRepository.create(customer);
     }
 
-    public Optional<Customer> updateCustomer(BigInteger id, Customer updatedCustomer) {
-        Customer existingCustomer = customers.get(id);
-        if (existingCustomer != null) {
-            existingCustomer.setName(updatedCustomer.getName());
-            existingCustomer.setEmail(updatedCustomer.getEmail());
-            existingCustomer.setOrders(updatedCustomer.getOrders());
-            return Optional.of(existingCustomer);
-        }
-        return Optional.empty();
+    public void updateCustomer(BigInteger id, Customer customer) {
+        customerRepository.update(customer);
     }
 
-    public boolean deleteCustomer(BigInteger id) {
-        return customers.remove(id) != null;
+    public void deleteCustomer(BigInteger id) {
+        customerRepository.delete(id);
     }
 
     public List<Customer> findByNameWithPaging(String name, int page, int size) {
-        return customers.values().stream()
-                .filter(customer -> customer.getName().equalsIgnoreCase(name))
-                .skip((page - 1) * size)
-                .limit(size)
-                .collect(Collectors.toList());
+        return customerRepository.findByNameWithPaging(name, page, size);
     }
 
     public List<Customer> findByNameLike(String name) {
-        return customers.values().stream()
-                .filter(customer -> customer.getName().toLowerCase().contains(name.toLowerCase()))
-                .collect(Collectors.toList());
+        return customerRepository.findByNameLike(name);
     }
 
     public Optional<Customer> findByEmail(String email) {
-        return customers.values().stream()
-                .filter(customer -> customer.getEmail().equalsIgnoreCase(email))
-                .findFirst();
+        return Optional.ofNullable(customerRepository.findByEmail(email));
     }
 
 }

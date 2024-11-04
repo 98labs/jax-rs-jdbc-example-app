@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 public class ApplicationConfigTest extends TestCase {
 
     public void testLoadYamlConfig() {
-        YamlConfig config = new ApplicationConfig().loadYamlConfig();
+        YamlConfig config = ApplicationConfig.getInstance().loadYamlConfig();
 
 //        assertEquals("jdbc:oracle:thin:@localhost:1521:xe", config.getDatabase().getConnection().getJdbcUrl());
 //        assertEquals("username", config.getDatabase().getConnection().getUsername());

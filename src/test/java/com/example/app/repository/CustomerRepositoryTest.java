@@ -4,23 +4,24 @@ import com.example.app.config.ApplicationConfig;
 import com.example.app.model.Customer;
 import junit.framework.TestCase;
 
+import javax.sql.DataSource;
 import java.math.BigInteger;
 import java.util.List;
 
 public class CustomerRepositoryTest extends TestCase {
 
-    ApplicationConfig appConfig;
-    CustomerJdbcRepository repository;
+    DataSource dataSource = ApplicationConfig.getInstance().getDataSource();
+    CustomerJdbcRepository repository = null;
 
     public void setUp() throws Exception {
         super.setUp();
-        appConfig = new ApplicationConfig();
-        repository = new CustomerJdbcRepository();
-        repository.setDataSource(appConfig.getDataSource());
+        repository = new CustomerJdbcRepository(dataSource);
     }
 
     public void tearDown() throws Exception {
-        appConfig.destroy();
+        super.tearDown();
+        repository = null;
+        dataSource = null;
     }
 
 //    public void testCreate() {
