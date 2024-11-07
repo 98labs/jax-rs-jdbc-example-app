@@ -12,6 +12,7 @@ import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.sql.DataSource;
 import java.io.InputStream;
@@ -66,6 +67,7 @@ public class ApplicationConfig {
         return dataSource;
     }
 
+    @PreDestroy
     public void destroy() {
         closeDataSource();
     }
